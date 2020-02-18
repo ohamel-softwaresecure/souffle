@@ -192,6 +192,16 @@ void collectContent(AstProgram& program, const AstComponent& component, const Ty
             }
         });
 
+        // instantiate elements of sum types
+        visitDepthFirst(*type, [&](const AstSumType& type) {
+            for (const auto& branch : type.getBranches()) {
+                AstQualifiedName newName = binding.find(branch.type);
+                if (!newName.empty()) {
+                    const_cast<AstQualifiedName&>(branch.type) = std::move(newName);
+                }
+            }
+        });
+
         // add to result list (check existence first)
         res.add(type, report);
     }
@@ -367,6 +377,19 @@ ComponentContent getInstantiatedContent(AstProgram& program, const AstComponentI
             }
         });
 
+        // rename branches in sum type
+        // TODO: CODE-DUP: this seems identical to the work done in `collectContent`
+        visitDepthFirst(node, [&](const AstSumType& sumType) {
+            auto& branches = sumType.getBranches();
+            for (size_t i = 0; i < branches.size(); i++) {
+                auto& branch = branches[i];
+                auto pos = typeNameMapping.find(branch.type);
+                if (pos != typeNameMapping.end()) {
+                    const_cast<AstSumType&>(sumType).setVariantType(i, pos->second);
+                }
+            }
+        });
+
         // rename variant types in unions
         visitDepthFirst(node, [&](const AstUnionType& unionType) {
             auto& variants = unionType.getTypes();
@@ -375,6 +398,24 @@ ComponentContent getInstantiatedContent(AstProgram& program, const AstComponentI
                 if (pos != typeNameMapping.end()) {
                     const_cast<AstUnionType&>(unionType).setVariantType(i, pos->second);
                 }
+            }
+        });
+
+        // rename type information in record-init
+        visitDepthFirst(node, [&](const AstRecordInit& recordInit) {
+            if (recordInit.type) {
+                auto pos = typeNameMapping.find(*recordInit.type);
+                if (pos != typeNameMapping.end()) {
+                    const_cast<AstRecordInit&>(recordInit).type = pos->second;
+                }
+            }
+        });
+
+        // rename type information in record-init
+        visitDepthFirst(node, [&](const AstSumInit& sumInit) {
+            auto pos = typeNameMapping.find(sumInit.type);
+            if (pos != typeNameMapping.end()) {
+                const_cast<AstSumInit&>(sumInit).type = pos->second;
             }
         });
 

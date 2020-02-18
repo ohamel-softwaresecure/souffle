@@ -94,6 +94,9 @@ protected:
                         tuple[inputMap[column]] =
                                 readRecord(element, typeAttributes[inputMap[column]], 0, &charactersRead);
                         break;
+                    case '+':
+                        tuple[inputMap[column]] = readSum(element, typeAttributes[inputMap[column]]);
+                        break;
                     case 'i':
                         tuple[inputMap[column]] = RamSignedFromString(element, &charactersRead);
                         break;

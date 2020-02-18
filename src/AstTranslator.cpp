@@ -141,7 +141,7 @@ void AstTranslator::translateDirectives(std::map<std::string, std::string>& dire
     Json relJson = Json::object{{"arity", arity}, {"auxArity", auxArity},
             {"types", Json::array(attributesTypes.begin(), attributesTypes.end())}};
 
-    Json types = Json::object{{name, relJson}, {"records", getRecordsTypes()}};
+    Json types = Json::object{{name, relJson}, {"records", getRecordsTypes()}, {"sums", getSumTypes()}};
 
     directives["types"] = types.dump();
 }
@@ -527,6 +527,10 @@ void AstTranslator::ClauseTranslator::indexValues(const AstNode* curNode,
             // resolve nested components
             indexValues(rec, nodeArgs, arg_level, relation);
         }
+
+        // check for nested sum types
+        assert(!dynamic_cast<const AstSumInit*>(arg) &&
+                "sum type constructors should have been desugared by `SumInitToRecordInitTransformer`");
     }
 }
 
@@ -1698,8 +1702,8 @@ void AstTranslator::translateProgram(const AstTranslationUnit& translationUnit) 
 
 const Json AstTranslator::getRecordsTypes(void) {
     // Check if the types where already constructed
-    if (!RamRecordTypes.is_null()) {
-        return RamRecordTypes;
+    if (!ramRecordTypes.is_null()) {
+        return ramRecordTypes;
     }
 
     std::vector<std::string> types;
@@ -1724,8 +1728,38 @@ const Json AstTranslator::getRecordsTypes(void) {
         }
     }
 
-    RamRecordTypes = Json(records);
-    return RamRecordTypes;
+    ramRecordTypes = Json(records);
+    return ramRecordTypes;
+}
+
+const Json AstTranslator::getSumTypes() {
+    if (!ramSumTypes.is_null()) {
+        return ramSumTypes;
+    }
+
+    std::map<std::string, Json> sums;
+
+    // Iterate over all record types in the program populating the records map.
+    for (auto* astType : program->getTypes()) {
+        if (const auto* astSumType = dynamic_cast<const AstSumType*>(astType)) {
+            auto&& sumType = getTypeQualifier(typeEnv->getType(astSumType->getQualifiedName()));
+
+            std::vector<Json> branches;
+            long long branchIdx = 0;
+            for (auto&& br : astSumType->getBranches()) {
+                branches.emplace_back(Json::object{
+                        {"name", br.name},
+                        {"type", getTypeQualifier(typeEnv->getType(br.type))},
+                });
+                branchIdx++;
+            }
+
+            sums.emplace(std::move(sumType), std::move(branches));
+        }
+    }
+
+    ramSumTypes = Json(std::move(sums));
+    return ramSumTypes;
 }
 
 std::unique_ptr<RamTranslationUnit> AstTranslator::translateUnit(AstTranslationUnit& tu) {

@@ -56,6 +56,7 @@ public:
     void addFunctorDeclaration(std::unique_ptr<AstFunctorDeclaration> f);
     void addIO(std::unique_ptr<AstIO> d);
     void addType(std::unique_ptr<AstType> type);
+    std::string addTypeAnon(std::unique_ptr<AstType> type, std::string nameBase = "");
     void addClause(std::unique_ptr<AstClause> c);
     void addComponent(std::unique_ptr<AstComponent> c);
     void addInstantiation(std::unique_ptr<AstComponentInit> ci);
@@ -75,6 +76,11 @@ public:
     void warning(const SrcLocation& loc, const std::string& msg);
     void error(const SrcLocation& loc, const std::string& msg);
     void error(const std::string& msg);
+
+private:
+    // FIXME: HACK: This counter should be shared between all translation units in a program to
+    //              ensure uniqueness.
+    uint32_t anonCounter = 0;
 };
 
 }  // end of namespace souffle

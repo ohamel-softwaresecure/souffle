@@ -82,7 +82,10 @@ private:
     std::map<std::string, std::unique_ptr<RamRelation>> ramRels;
 
     /** Record types information - used in Ram for I/O. */
-    Json RamRecordTypes;
+    Json ramRecordTypes;
+
+    /** Sum type information - used in Ram for I/O. */
+    Json ramSumTypes;
 
     /** Symbol Table **/
     SymbolTable symbolTable;
@@ -425,6 +428,11 @@ private:
 
     /** translate RAM code for a constant value */
     std::unique_ptr<RamExpression> translateConstant(AstConstant const& c);
+
+    /**
+     * Get ram sum types.
+     */
+    const Json getSumTypes();
 
     /**
      * translate RAM code for the non-recursive clauses of the given relation.

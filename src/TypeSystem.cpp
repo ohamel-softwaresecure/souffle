@@ -27,12 +27,12 @@ void SubsetType::print(std::ostream& out) const {
 
 void UnionType::add(const Type& type) {
     assert(environment.isType(type));
-    elementTypes.push_back(&type);
+    elementTypes.emplace_back(type);
 }
 
 void UnionType::print(std::ostream& out) const {
     out << getName() << " = "
-        << join(elementTypes, " | ", [](std::ostream& out, const Type* type) { out << type->getName(); });
+        << join(elementTypes, " | ", [](auto&& out, auto&& type) { out << type.get().getName(); });
 }
 
 void RecordType::add(const std::string& name, const Type& type) {
@@ -49,6 +49,16 @@ void RecordType::print(std::ostream& out) const {
     out << "( " << join(fields, " , ", [](std::ostream& out, const RecordType::Field& f) {
         out << f.name << " : " << f.type.getName();
     }) << " )";
+}
+
+void SumType::add(Branch branch) {
+    assert(environment.isType(branch.type));
+    branches.emplace_back(std::move(branch));
+}
+
+void SumType::print(std::ostream& out) const {
+    out << getName() << " = "
+        << join(branches, " | ", [](auto&& os, auto&& br) { os << br.name << " = " << br.type; });
 }
 
 TypeSet TypeEnvironment::initializePredefinedTypes() {
@@ -138,6 +148,9 @@ struct TypeVisitor {
         if (auto* t = dynamic_cast<const RecordType*>(&type)) {
             return visitRecordType(*t);
         }
+        if (auto* t = dynamic_cast<const SumType*>(&type)) {
+            return visitSumType(*t);
+        }
         assert(false && "Unsupported type encountered!");
         return R();
     }
@@ -155,6 +168,10 @@ struct TypeVisitor {
     }
 
     virtual R visitRecordType(const RecordType& type) const {
+        return visitType(type);
+    }
+
+    virtual R visitSumType(const SumType& type) const {
         return visitType(type);
     }
 
@@ -212,8 +229,7 @@ bool isOfRootType(const Type& type, const Type& root) {
             if (type.getElementTypes().empty()) {
                 return false;
             }
-            auto fit = [&](const Type* cur) { return visit(*cur); };
-            return all_of(type.getElementTypes(), fit);
+            return all_of(type.getElementTypes(), [&](auto&& ty) { return visit(ty); });
         }
         bool visitType(const Type& /*unused*/) const override {
             return false;
@@ -240,8 +256,7 @@ bool isSubType(const Type& a, const UnionType& b) {
             return VisitOnceTypeVisitor<bool>::visit(type);
         }
         bool visitUnionType(const UnionType& type) const override {
-            auto isSubType = [&](const Type* cur) { return visit(*cur); };
-            return any_of(type.getElementTypes(), isSubType);
+            return any_of(type.getElementTypes(), [&](auto&& ty) { return visit(ty); });
         }
     };
 
@@ -253,19 +268,18 @@ bool isSubType(const Type& a, const UnionType& b) {
 std::string getTypeQualifier(const Type& type) {
     struct visitor : public VisitOnceTypeVisitor<std::string> {
         std::string visitUnionType(const UnionType& type) const override {
-            std::string str = visitType(type);
-            str += "[";
-            bool first = true;
-            for (auto unionType : type.getElementTypes()) {
-                if (first) {
-                    first = false;
-                } else {
-                    str += ",";
-                }
-                str += visit(*unionType);
-            }
-            str += "]";
-            return str;
+            std::ostringstream output;
+            output << visitType(type) << "["
+                   << join(type.getElementTypes(), ",", [&](auto& os, auto& x) { os << visit(x); }) << "]";
+            return output.str();
+        }
+
+        std::string visitSumType(const SumType& type) const override {
+            std::ostringstream output;
+            output << visitType(type) << "[" << join(type.getBranches(), ";", [&](auto& os, auto& x) {
+                os << x.name << " = " << visit(x.type);
+            }) << "]";
+            return output.str();
         }
 
         std::string visitRecordType(const RecordType& type) const override {
@@ -304,6 +318,9 @@ std::string getTypeQualifier(const Type& type) {
                     break;
                 case TypeAttribute::Record:
                     str.append("r");
+                    break;
+                case TypeAttribute::Sum:
+                    str.append("+");
                     break;
             }
             str.append(":");
@@ -368,6 +385,14 @@ bool isRecordType(const TypeSet& s) {
     return !s.empty() && !s.isAll() && all_of(s, (bool (*)(const Type&)) & isRecordType);
 }
 
+bool isSumType(const Type& type) {
+    return dynamic_cast<const SumType*>(&type);
+}
+
+bool isSumType(const TypeSet& s) {
+    return !s.empty() && !s.isAll() && all_of(s, (bool (*)(const Type&)) & isSumType);
+}
+
 bool isRecursiveType(const Type& type) {
     struct visitor : public VisitOnceTypeVisitor<bool> {
         const Type& trg;
@@ -379,20 +404,24 @@ bool isRecursiveType(const Type& type) {
             return VisitOnceTypeVisitor<bool>::visit(type);
         }
         bool visitUnionType(const UnionType& type) const override {
-            auto reachesTrg = [&](const Type* cur) { return this->visit(*cur); };
-            return any_of(type.getElementTypes(), reachesTrg);
+            return any_of(type.getElementTypes(), [&](auto&& ty) { return visit(ty); });
         }
         bool visitRecordType(const RecordType& type) const override {
-            auto reachesTrg = [&](const RecordType::Field& cur) { return this->visit(cur.type); };
-            return any_of(type.getFields(), reachesTrg);
+            return any_of(type.getFields(), [&](auto&& x) { return visit(x.type); });
+        }
+        bool visitSumType(const SumType& type) const override {
+            return any_of(type.getBranches(), [&](auto&& x) { return visit(x.type); });
         }
     };
 
     // record types are recursive if they contain themselves
     if (const auto* r = dynamic_cast<const RecordType*>(&type)) {
-        auto reachesOrigin = visitor(type);
-        return any_of(r->getFields(),
-                [&](const RecordType::Field& field) -> bool { return reachesOrigin(field.type); });
+        return visitor(type).visitRecordType(*r);
+    }
+
+    // sum types are recursive if any of their branches (indirectly) contains them
+    if (const auto* s = dynamic_cast<const SumType*>(&type)) {
+        return visitor(type).visitSumType(*s);
     }
 
     return false;
@@ -572,7 +601,7 @@ TypeSet getGreatestCommonSubtypes(const Type& a, const Type& b) {
             }
             void visitUnionType(const UnionType& type) const override {
                 for (const auto& cur : type.getElementTypes()) {
-                    visit(*cur);
+                    visit(cur);
                 }
             }
         };

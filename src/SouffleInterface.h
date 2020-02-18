@@ -538,7 +538,8 @@ public:
      */
     tuple& operator<<(RamSigned integer) {
         assert(pos < size() && "exceeded tuple's size");
-        assert((*relation.getAttrType(pos) == 'i' || *relation.getAttrType(pos) == 'r') &&
+        assert((*relation.getAttrType(pos) == 'i' || *relation.getAttrType(pos) == 'r' ||
+                       *relation.getAttrType(pos) == '+') &&
                 "wrong element type");
         array[pos++] = integer;
         return *this;
@@ -595,7 +596,8 @@ public:
      */
     tuple& operator>>(RamSigned& integer) {
         assert(pos < size() && "exceeded tuple's size");
-        assert((*relation.getAttrType(pos) == 'i' || *relation.getAttrType(pos) == 'r') &&
+        assert((*relation.getAttrType(pos) == 'i' || *relation.getAttrType(pos) == 'r' ||
+                       *relation.getAttrType(pos) == '+') &&
                 "wrong element type");
         integer = ramBitCast<RamSigned>(array[pos++]);
         return *this;

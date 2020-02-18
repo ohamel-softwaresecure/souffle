@@ -72,6 +72,7 @@ struct AstVisitor : public ast_visitor_tag {
         // types
         FORWARD(SubsetType);
         FORWARD(UnionType);
+        FORWARD(SumType);
         FORWARD(RecordType);
 
         // arguments
@@ -85,6 +86,7 @@ struct AstVisitor : public ast_visitor_tag {
         FORWARD(NilConstant)
         FORWARD(TypeCast)
         FORWARD(RecordInit)
+        FORWARD(SumInit)
         FORWARD(Aggregator)
         FORWARD(SubroutineArgument)
 
@@ -126,6 +128,7 @@ protected:
     LINK(SubsetType, Type);
     LINK(RecordType, Type);
     LINK(UnionType, Type);
+    LINK(SumType, Type);
     LINK(Type, Node);
 
     // -- arguments --
@@ -133,6 +136,7 @@ protected:
     LINK(UnnamedVariable, Argument)
     LINK(Counter, Argument)
     LINK(TypeCast, Argument)
+    LINK(SumInit, Argument)
     LINK(SubroutineArgument, Argument)
 
     LINK(NumericConstant, Constant)

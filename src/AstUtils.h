@@ -35,6 +35,7 @@ class AstRelation;
 class AstType;
 class AstVariable;
 class AstRecordInit;
+class AstSumInit;
 
 // ---------------------------------------------------------------
 //                      General Utilities
@@ -57,6 +58,15 @@ std::vector<const AstVariable*> getVariables(const AstNode& root);
  * @return a list of all records referenced within
  */
 std::vector<const AstRecordInit*> getRecords(const AstNode& root);
+
+/**
+ * Obtains a list of all sum types referenced within the AST rooted
+ * by the given root node.
+ *
+ * @param root the root of the AST to be searched
+ * @return a list of all sum types referenced within
+ */
+std::vector<const AstSumInit*> getSums(const AstNode& root);
 
 /**
  * Returns literals of a particular type in the body of a clause.
