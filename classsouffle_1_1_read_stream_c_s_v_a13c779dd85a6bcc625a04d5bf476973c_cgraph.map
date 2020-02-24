@@ -1,0 +1,20 @@
+<map id="souffle::ReadStreamCSV::readNextTuple" name="souffle::ReadStreamCSV::readNextTuple">
+<area shape="rect" id="node2" href="$classsouffle_1_1_read_stream_c_s_v.html#a0442765c1e11c34de5b1684ba3cafc28" title="souffle::ReadStreamCSV\l::nextElement" alt="" coords="232,5,411,47"/>
+<area shape="rect" id="node3" href="$namespacesouffle.html#a25311f9e95c1f1147066933e9283b2bc" title="In C++20 there will be a new way to cast between types by reinterpreting bits (std::bit_cast), but as of January 2020 it is not yet supported. " alt="" coords="498,69,645,95"/>
+<area shape="rect" id="node4" href="$namespacesouffle.html#a41711ced276ed34ae2074d8f32d7b71b" title="Converts a string to a RamDomain. " alt="" coords="459,119,684,146"/>
+<area shape="rect" id="node5" href="$namespacesouffle.html#a42f50e44c16d45c78e4a37b005ac94c9" title="Converts a string to a RamFloat. " alt="" coords="468,170,675,197"/>
+<area shape="rect" id="node6" href="$namespacesouffle.html#a084bbb9535fee35e4682c948ce88bddb" title="Converts a string to a RamUnsigned. " alt="" coords="473,221,670,263"/>
+<area shape="rect" id="node8" href="$classsouffle_1_1_read_stream.html#a5efc75da3307ad16609b78a2d1e66130" title="Read a record from a string. " alt="" coords="245,339,398,380"/>
+<area shape="rect" id="node17" href="$classsouffle_1_1_symbol_table.html#a46a7fcfb933d111b38bc474415c5c986" title="Find the index of a symbol in the table, inserting a new symbol if it does not exist there already..." alt="" coords="737,713,894,755"/>
+<area shape="rect" id="node7" href="$namespacesouffle.html#a2b9d2ca046f7468e341c7cb1c679ec8b" title="souffle::stord" alt="" coords="762,229,869,255"/>
+<area shape="rect" id="node9" href="$classsouffle_1_1_read_stream.html#a1b873072da721975f1601ab9247df1bb" title="Read past given character, consuming any preceding whitespace. " alt="" coords="495,339,648,380"/>
+<area shape="rect" id="node10" href="$classsouffle_1_1_read_stream.html#afc068ffbae9187204c5173eaca91bfc6" title="Advance position in the string until first non&#45;whitespace character. " alt="" coords="732,309,899,351"/>
+<area shape="rect" id="node11" href="$classsouffle_1_1_record_table.html#a4287fd6ddb97d7546b487588872ee010" title="souffle::RecordTable\l::getNil" alt="" coords="495,404,647,445"/>
+<area shape="rect" id="node12" href="$classjson11_1_1_json.html#a4ae030733f6ebd910882afb9e2364b1a" title="json11::Json::is_null" alt="" coords="496,470,647,497"/>
+<area shape="rect" id="node14" href="$classjson11_1_1_json.html#af7eebdc61914abc7a209331ef81e4528" title="json11::Json::long\l_value" alt="" coords="503,521,639,563"/>
+<area shape="rect" id="node15" href="$classsouffle_1_1_record_table.html#a30764bb03ecccb41235514a2cfbbcb0d" title="A function packing a tuple of the given arity into a reference. " alt="" coords="495,587,647,628"/>
+<area shape="rect" id="node16" href="$classsouffle_1_1_read_stream.html#aceaf86101445cc84e8c73de59696f9f7" title="souffle::ReadStream\l::readStringInRecord" alt="" coords="495,652,648,693"/>
+<area shape="rect" id="node19" href="$classjson11_1_1_json.html#a9399e1cf8d2a8a1bc7f231a74ae13184" title="json11::Json::string\l_value" alt="" coords="499,717,644,759"/>
+<area shape="rect" id="node13" href="$classjson11_1_1_json.html#aa9c2e69e711a000bdbd424e6b2f06139" title="json11::Json::type" alt="" coords="747,470,884,497"/>
+<area shape="rect" id="node18" href="$classsouffle_1_1_symbol_table.html#a3ada80bb01130f70001918c386d3ab21" title="Convenience method to place a new symbol in the table, if it does not exist, and return the index of ..." alt="" coords="947,713,1104,755"/>
+</map>

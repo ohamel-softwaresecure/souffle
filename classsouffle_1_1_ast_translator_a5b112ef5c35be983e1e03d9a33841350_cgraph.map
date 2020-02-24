@@ -1,0 +1,23 @@
+<map id="souffle::AstTranslator::getRecordsTypes" name="souffle::AstTranslator::getRecordsTypes">
+<area shape="rect" id="node2" href="$classsouffle_1_1_type_environment.html#a2955ff39b330ae15de7c0b694b06ebd0" title="souffle::TypeEnvironment\l::getType" alt="" coords="212,65,399,107"/>
+<area shape="rect" id="node3" href="$namespacesouffle.html#a0d6fe661fa54da7de4dccc65c8f82834" title="Returns full type qualifier for a given type. " alt="" coords="215,131,395,158"/>
+<area shape="rect" id="node20" href="$classsouffle_1_1_ast_program.html#ab89acf11aa6024cbfc8be3a786a91cb9" title="get types " alt="" coords="230,183,381,224"/>
+<area shape="rect" id="node21" href="$classjson11_1_1_json.html#a4ae030733f6ebd910882afb9e2364b1a" title="json11::Json::is_null" alt="" coords="230,257,381,283"/>
+<area shape="rect" id="node4" href="$classsouffle_1_1_union_type.html#a0175bce933a70c1d3691114860ac17fc" title="souffle::UnionType\l::getElementTypes" alt="" coords="694,71,837,112"/>
+<area shape="rect" id="node6" href="$structsouffle_1_1_record_type.html#a338320267386a93ab482f1e25d50ef7a" title="souffle::RecordType\l::getFields" alt="" coords="464,5,612,47"/>
+<area shape="rect" id="node7" href="$classsouffle_1_1_type.html#ac532f38ba7bd184339d5128d247567d2" title="souffle::Type::getName" alt="" coords="452,71,624,98"/>
+<area shape="rect" id="node8" href="$namespacesouffle.html#afe2ff9f374555126a532203710149346" title="Convert a type analysis&#39; type/set of type to the the TypeAttribute. " alt="" coords="447,223,629,250"/>
+<area shape="rect" id="node19" href="$namespacesouffle.html#aecc08c83ad9634fc515b7aa094702949" title="A generic function converting strings into strings (trivial case). " alt="" coords="475,122,601,149"/>
+<area shape="rect" id="node5" href="$classsouffle_1_1_type.html#a00437c665d598367ff16229c823c728f" title="souffle::Type::print" alt="" coords="1196,63,1339,90"/>
+<area shape="rect" id="node9" href="$namespacesouffle.html#a1a7d8cb2f6a29f825e650a7c98487718" title="Determines whether the given type is a float type. " alt="" coords="692,246,839,273"/>
+<area shape="rect" id="node12" href="$namespacesouffle.html#a4e502e6abb9a3e9a8e4c1168dbf23743" title="Determines whether the given type is a number type. " alt="" coords="682,297,849,323"/>
+<area shape="rect" id="node14" href="$namespacesouffle.html#a34c8a82b8d9ed840b32e93186002d18c" title="Determines whether the given type is a record type. " alt="" coords="686,347,845,374"/>
+<area shape="rect" id="node15" href="$namespacesouffle.html#a11f6c352eec6bde7b5a0b143ffe64e3b" title="Determines whether the given type is a symbol type. " alt="" coords="683,145,847,171"/>
+<area shape="rect" id="node17" href="$namespacesouffle.html#a5c4839a38da22a968ab01e81a67d793c" title="Determines whether the given type is a number type. " alt="" coords="677,195,853,222"/>
+<area shape="rect" id="node10" href="$classsouffle_1_1_type_environment.html#a5569e54d58b6ca69f1fffbdd77143545" title="souffle::TypeEnvironment\l::getFloatType" alt="" coords="931,297,1118,339"/>
+<area shape="rect" id="node11" href="$classsouffle_1_1_type.html#a2bc9172d0ce6390a7960b24b16172c79" title="souffle::Type::getTypeEnvironment" alt="" coords="901,246,1148,273"/>
+<area shape="rect" id="node13" href="$classsouffle_1_1_type_environment.html#a5586a154835d2bfc076b9d5fcc11a50f" title="souffle::TypeEnvironment\l::getNumberType" alt="" coords="931,363,1118,404"/>
+<area shape="rect" id="node16" href="$classsouffle_1_1_type_environment.html#a72fa419d33bf813f22efabec629a4627" title="souffle::TypeEnvironment\l::getSymbolType" alt="" coords="931,115,1118,156"/>
+<area shape="rect" id="node18" href="$classsouffle_1_1_type_environment.html#a0b191b7782e170a23b54f7ec347a32ab" title="souffle::TypeEnvironment\l::getUnsignedType" alt="" coords="931,180,1118,221"/>
+<area shape="rect" id="node22" href="$classjson11_1_1_json.html#aa9c2e69e711a000bdbd424e6b2f06139" title="json11::Json::type" alt="" coords="469,274,607,301"/>
+</map>

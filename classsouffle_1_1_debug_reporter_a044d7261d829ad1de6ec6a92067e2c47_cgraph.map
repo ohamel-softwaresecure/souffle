@@ -1,0 +1,8 @@
+<map id="souffle::DebugReporter::generateDebugReport" name="souffle::DebugReporter::generateDebugReport">
+<area shape="rect" id="node2" href="$classsouffle_1_1_debug_report.html#a4e6fe0a6d9854ce570d008772daa9aba" title="souffle::DebugReport\l::addSection" alt="" coords="243,5,401,47"/>
+<area shape="rect" id="node3" href="$classsouffle_1_1_ast_translation_unit.html#af396e44c83e5ad410c9ec3e2f6b91758" title="get analysis: analysis is generated on the fly if not present " alt="" coords="225,71,419,112"/>
+<area shape="rect" id="node4" href="$classsouffle_1_1_ast_translation_unit.html#a2c05c0d93e34800167034b1aa423c4a0" title="get debug report " alt="" coords="225,136,419,177"/>
+<area shape="rect" id="node5" href="$classsouffle_1_1_ast_translation_unit.html#a85862a5fcfecdf63c7367926cdedde23" title="get the AST program " alt="" coords="225,201,419,243"/>
+<area shape="rect" id="node6" href="$classsouffle_1_1_ast_program.html#a41b95b3179fc737c70c7b957220146c4" title="Output to a given output stream. " alt="" coords="247,267,397,308"/>
+<area shape="rect" id="node7" href="$namespacesouffle.html#abe4e3f19879707216a2758b03f4e2deb" title="Creates an object to be forwarded to some output stream for printing sequences of elements interspers..." alt="" coords="467,274,565,301"/>
+</map>

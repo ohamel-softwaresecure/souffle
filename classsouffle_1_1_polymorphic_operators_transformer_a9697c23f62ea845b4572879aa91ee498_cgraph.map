@@ -1,0 +1,38 @@
+<map id="souffle::PolymorphicOperatorsTransformer::transform" name="souffle::PolymorphicOperatorsTransformer::transform">
+<area shape="rect" id="node2" href="$namespacesouffle.html#a14b5f9eb9ec09c40e558b242e75de872" title="A generic test checking whether all elements within a container satisfy a certain predicate..." alt="" coords="316,357,427,383"/>
+<area shape="rect" id="node3" href="$classsouffle_1_1_ast_program.html#a0a658e411394dfc93da0ab36e06d0101" title="Apply the mapper to all child nodes. " alt="" coords="296,408,447,449"/>
+<area shape="rect" id="node4" href="$namespacesouffle.html#ab55155cf1bff3a08e76b26290a08c9d3" title="Convert Constraint to work with requested type. " alt="" coords="272,473,471,515"/>
+<area shape="rect" id="node5" href="$namespacesouffle.html#a5fbbaeea6848aa8448ccc59a7e404aeb" title="Convert an overloaded functor, so that it works with the requested type. " alt="" coords="272,539,471,580"/>
+<area shape="rect" id="node6" href="$classsouffle_1_1_ast_translation_unit.html#af396e44c83e5ad410c9ec3e2f6b91758" title="get analysis: analysis is generated on the fly if not present " alt="" coords="275,604,468,645"/>
+<area shape="rect" id="node7" href="$classsouffle_1_1_ast_translation_unit.html#aec4a1cc2e03286db878a5d2f0377f894" title="get error report " alt="" coords="275,669,468,711"/>
+<area shape="rect" id="node8" href="$classsouffle_1_1_ast_translation_unit.html#a85862a5fcfecdf63c7367926cdedde23" title="get the AST program " alt="" coords="275,735,468,776"/>
+<area shape="rect" id="node9" href="$classsouffle_1_1_type_analysis.html#a718c9369175312a51ed803c99ce43efb" title="Get the computed types for the given argument. " alt="" coords="292,800,451,841"/>
+<area shape="rect" id="node30" href="$namespacesouffle.html#a1194839f74c824923896977b98541e2e" title="Indicate whether a functor is overloaded. " alt="" coords="755,1025,961,1051"/>
+<area shape="rect" id="node35" href="$namespacesouffle.html#a1a7d8cb2f6a29f825e650a7c98487718" title="Determines whether the given type is a float type. " alt="" coords="533,866,680,893"/>
+<area shape="rect" id="node36" href="$namespacesouffle.html#acf7ac56e1539b5fc646d3822edf00bc2" title="Utility function, informing whether constraint is overloaded. " alt="" coords="291,967,451,994"/>
+<area shape="rect" id="node37" href="$namespacesouffle.html#a5c4839a38da22a968ab01e81a67d793c" title="Determines whether the given type is a number type. " alt="" coords="519,917,695,943"/>
+<area shape="rect" id="node10" href="$classsouffle_1_1_type_analysis.html#ad03f4742d97ca60ab48f0f76ba0a1b0e" title="Analyse the given clause and computes for each contained argument a set of potential types..." alt="" coords="527,521,686,563"/>
+<area shape="rect" id="node11" href="$namespacesouffle.html#ab18cbb3adc2ab328de0db30a3fddf7e0" title="Returns the relation referenced by the given atom. " alt="" coords="767,558,949,585"/>
+<area shape="rect" id="node14" href="$classsouffle_1_1_ast_atom.html#a9c726c597d7921245dd97dcc72b8aeed" title="Provides access to the list of arguments of this atom. " alt="" coords="743,791,973,818"/>
+<area shape="rect" id="node16" href="$classsouffle_1_1_type_environment.html#ad76ba516b5c5acab7f895243a2cf6c00" title="souffle::TypeEnvironment\l::isType" alt="" coords="1027,492,1214,533"/>
+<area shape="rect" id="node17" href="$namespacesouffle.html#a8cc19c66d9d13ce64e65f14dcabb43b3" title="Determines whether type a is a subtype of type b. " alt="" coords="781,259,935,286"/>
+<area shape="rect" id="node18" href="$classsouffle_1_1_type_environment.html#a5586a154835d2bfc076b9d5fcc11a50f" title="souffle::TypeEnvironment\l::getNumberType" alt="" coords="1298,332,1485,373"/>
+<area shape="rect" id="node19" href="$classsouffle_1_1_type_environment.html#a72fa419d33bf813f22efabec629a4627" title="souffle::TypeEnvironment\l::getSymbolType" alt="" coords="1298,231,1485,272"/>
+<area shape="rect" id="node24" href="$classsouffle_1_1_type_environment.html#a2955ff39b330ae15de7c0b694b06ebd0" title="souffle::TypeEnvironment\l::getType" alt="" coords="765,361,951,403"/>
+<area shape="rect" id="node25" href="$classsouffle_1_1_ast_negation.html#a0737c379dac1c350accecb1e2301698c" title="Returns the nested atom as the referenced atom. " alt="" coords="781,427,935,468"/>
+<area shape="rect" id="node26" href="$classsouffle_1_1_type_environment.html#a5569e54d58b6ca69f1fffbdd77143545" title="souffle::TypeEnvironment\l::getFloatType" alt="" coords="765,843,951,884"/>
+<area shape="rect" id="node27" href="$classsouffle_1_1_type_environment.html#a0b191b7782e170a23b54f7ec347a32ab" title="souffle::TypeEnvironment\l::getUnsignedType" alt="" coords="765,908,951,949"/>
+<area shape="rect" id="node28" href="$classsouffle_1_1_ast_binary_constraint.html#a72b9e10473e1748d720bbf68a3e7f471" title="Return LHS argument. " alt="" coords="756,492,960,533"/>
+<area shape="rect" id="node29" href="$classsouffle_1_1_ast_binary_constraint.html#a61055c91c04bcbe4d03873044c6bf4b8" title="Return RHS argument. " alt="" coords="756,660,960,701"/>
+<area shape="rect" id="node31" href="$classsouffle_1_1_ast_functor.html#a503ff57e30e3e80bdf94b70200c6a626" title="souffle::AstFunctor\l::getReturnType" alt="" coords="787,725,929,767"/>
+<area shape="rect" id="node32" href="$classsouffle_1_1_ast_term.html#a5bf9145afa6b327c21e3393123c292c3" title="get arguments " alt="" coords="745,609,971,635"/>
+<area shape="rect" id="node33" href="$classsouffle_1_1_ast_functor.html#a9f5f65232109a3102c2e3ed28faa26bd" title="souffle::AstFunctor\l::getArgType" alt="" coords="787,5,929,47"/>
+<area shape="rect" id="node34" href="$classsouffle_1_1_ast_aggregator.html#ab7e1ea1e90047289a281ebe75a19365e" title="Get target expression. " alt="" coords="775,71,941,112"/>
+<area shape="rect" id="node12" href="$classsouffle_1_1_ast_atom.html#a83a8f4fdc486c20a330570571ec34fb5" title="Return the name of this atom. " alt="" coords="1021,558,1220,585"/>
+<area shape="rect" id="node13" href="$classsouffle_1_1_ast_program.html#a341b3f26e901984483b279f2791093b8" title="get relation " alt="" coords="1045,609,1196,651"/>
+<area shape="rect" id="node15" href="$namespacesouffle.html#ad62d4e824a9d74c7462da546a21780fe" title="A utility function enabling the creation of a vector of pointers. " alt="" coords="1047,733,1194,759"/>
+<area shape="rect" id="node21" href="$classsouffle_1_1_type.html#a2bc9172d0ce6390a7960b24b16172c79" title="souffle::Type::getTypeEnvironment" alt="" coords="1268,441,1515,467"/>
+<area shape="rect" id="node22" href="$namespacesouffle.html#a4e502e6abb9a3e9a8e4c1168dbf23743" title="Determines whether the given type is a number type. " alt="" coords="1037,390,1204,417"/>
+<area shape="rect" id="node23" href="$namespacesouffle.html#a11f6c352eec6bde7b5a0b143ffe64e3b" title="Determines whether the given type is a symbol type. " alt="" coords="1039,289,1203,315"/>
+<area shape="rect" id="node20" href="$classsouffle_1_1_type.html#a00437c665d598367ff16229c823c728f" title="souffle::Type::print" alt="" coords="1563,238,1705,265"/>
+</map>

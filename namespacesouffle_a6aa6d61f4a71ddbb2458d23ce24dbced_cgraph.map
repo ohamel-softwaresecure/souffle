@@ -1,0 +1,8 @@
+<map id="souffle::cloneHead" name="souffle::cloneHead">
+<area shape="rect" id="node2" href="$classsouffle_1_1_ast_execution_plan.html#ac657ffa016ae777656585a56fc9a899c" title="Create a clone (i.e. " alt="" coords="196,5,383,47"/>
+<area shape="rect" id="node3" href="$classsouffle_1_1_ast_node.html#ae84bf084ceca6ac36dc4be406f42870f" title="Return source location of the AstNode. " alt="" coords="431,71,631,98"/>
+<area shape="rect" id="node4" href="$classsouffle_1_1_ast_atom.html#a274d22e3c57da222d244c26f5937dd8a" title="Create a clone (i.e. " alt="" coords="203,122,376,149"/>
+<area shape="rect" id="node6" href="$classsouffle_1_1_ast_clause.html#aa943423c45971e70c837da5b88c8fc04" title="Obtains the execution plan associated to this clause or null if there is none. " alt="" coords="218,173,361,215"/>
+<area shape="rect" id="node7" href="$classsouffle_1_1_ast_clause.html#a5a29a4f9ba5d0e4aea869cf71a6efbbf" title="Return the atom that represents the head of the clause. " alt="" coords="220,239,359,280"/>
+<area shape="rect" id="node5" href="$classsouffle_1_1_ast_atom.html#a83a883b45da6862eb20186cd61b7a859" title="souffle::AstAtom::AstAtom" alt="" coords="433,122,628,149"/>
+</map>

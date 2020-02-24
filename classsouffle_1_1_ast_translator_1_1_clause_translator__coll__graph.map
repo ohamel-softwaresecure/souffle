@@ -1,0 +1,12 @@
+<map id="souffle::AstTranslator::ClauseTranslator" name="souffle::AstTranslator::ClauseTranslator">
+<area shape="rect" id="node2" href="$classsouffle_1_1_auxiliary_arity.html" title="Determine the auxiliary arity for relations. " alt="" coords="923,1373,1085,1494"/>
+<area shape="rect" id="node21" href="$classsouffle_1_1_ast_translator.html" title="Main class for AST Translator. " alt="" coords="1226,1637,1491,1905"/>
+<area shape="rect" id="node3" href="$classsouffle_1_1_ast_analysis.html" title="Abstract class for a AST Analysis. " alt="" coords="942,976,1093,1083"/>
+<area shape="rect" id="node5" href="$classsouffle_1_1_ast_program.html" title="Intermediate representation of a datalog program that consists of relations, clauses and types TODO (..." alt="" coords="1131,829,1363,1229"/>
+<area shape="rect" id="node6" href="$classsouffle_1_1_ast_node.html" title="Abstract class for syntactic elements in a Datalog program. " alt="" coords="2211,528,2354,767"/>
+<area shape="rect" id="node7" href="$classsouffle_1_1_src_location.html" title="A class describing a range in an input file. " alt="" coords="1699,359,1848,465"/>
+<area shape="rect" id="node8" href="$structsouffle_1_1_src_location_1_1_point.html" title="A class locating a single point in an input file. " alt="" coords="1061,160,1211,281"/>
+<area shape="rect" id="node25" href="$classjson11_1_1_json.html" title="{json11::Json\n||+ array_items()\l+ bool_value()\l+ dump()\l+ dump()\l+ has_shape()\l+ int_value()\l+ is_array()\l+ is_bool()\l+ is_null()\l+ is_number()\land 31 more...\l+ parse()\l+ parse()\l+ parse_multi()\l+ parse_multi()\l}" alt="" coords="1399,1292,1524,1575"/>
+<area shape="rect" id="node27" href="$classsouffle_1_1_type_environment.html" title="A type environment is a set of types. " alt="" coords="1548,1314,1735,1553"/>
+<area shape="rect" id="node29" href="$classsouffle_1_1_ast_translator_1_1_value_index.html" title="A class indexing the location of variables and record references within a loop nest resulting from th..." alt="" coords="1751,1637,1947,1905"/>
+</map>
