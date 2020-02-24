@@ -257,7 +257,7 @@
 %destructor { }                                             sum_branch
 
 /* -- Operator precedence -- */
-%left SUM_INIT
+%precedence SUM_INIT
 %left L_OR
 %left L_AND
 %left BW_OR
