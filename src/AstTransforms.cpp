@@ -1383,6 +1383,12 @@ bool SimplifyConstraintsTransformer::transform(AstTranslationUnit& translationUn
                         binary->getOperator() != BinaryConstraintOp::NE)
                     return node;
 
+                bool udfPresent = false;
+                visitDepthFirst(*binary, [&](const AstUserDefinedFunctor&) { udfPresent = true; });
+                // TODO: Should we assume user defined functors are pure?
+                // For now, let's assume they're not and could have side-effects.
+                if (udfPresent) return node;
+
                 // can't trivially reduce
                 if (*binary->getLHS() != *binary->getRHS()) return node;
 
