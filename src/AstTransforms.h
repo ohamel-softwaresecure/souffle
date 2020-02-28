@@ -585,4 +585,18 @@ private:
     bool transform(AstTranslationUnit& translationUnit) override;
 };
 
+/**
+ * Transformation that simplifies constraints in a clause, replacing those
+ * which can be proven always true/false w/ boolean constraints.
+ */
+class SimplifyConstraintsTransformer : public AstTransformer {
+public:
+    std::string getName() const override {
+        return "SimplifyConstraintsTransformer";
+    }
+
+private:
+    bool transform(AstTranslationUnit& translationUnit) override;
+};
+
 }  // end of namespace souffle

@@ -1368,4 +1368,39 @@ bool AstUserDefinedFunctorsTransformer::transform(AstTranslationUnit& translatio
     return update.changed;
 }
 
+bool SimplifyConstraintsTransformer::transform(AstTranslationUnit& translationUnit) {
+    struct Rewriter : public AstNodeMapper {
+        mutable bool changed{false};
+        const TypeAnalysis& typeAnalysis;
+
+        Rewriter(const TypeAnalysis& typeAnalysis) : typeAnalysis(typeAnalysis){};
+
+        std::unique_ptr<AstNode> operator()(std::unique_ptr<AstNode> node) const override {
+            node->apply(*this);
+
+            if (auto* binary = dynamic_cast<AstBinaryConstraint*>(node.get())) {
+                if (binary->getOperator() != BinaryConstraintOp::EQ &&
+                        binary->getOperator() != BinaryConstraintOp::NE)
+                    return node;
+
+                // can't trivially reduce
+                if (*binary->getLHS() != *binary->getRHS()) return node;
+
+                // skip these for now since we could have some NaNs
+                if (isFloatType(typeAnalysis.getTypes(binary->getLHS()))) return node;
+
+                changed = true;
+                return std::make_unique<AstBooleanConstraint>(
+                        binary->getOperator() == BinaryConstraintOp::EQ);
+            }
+
+            return node;
+        }
+    };
+
+    Rewriter update(*translationUnit.getAnalysis<TypeAnalysis>());
+    translationUnit.getProgram()->apply(update);
+    return update.changed;
+}
+
 }  // end of namespace souffle
