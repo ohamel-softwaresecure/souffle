@@ -230,10 +230,6 @@ void AstSemanticChecker::checkProgram(AstTranslationUnit& translationUnit) {
         }
     });
 
-    // TODO (#467) remove the next line to enable subprogram compilation for record types
-    // (sum types desugar to records)
-    visitDepthFirst(nodes, [&](const AstSumType& cnst) { Global::config().unset("engine"); });
-
     // type casts name a valid type
     visitDepthFirst(nodes, [&](const AstTypeCast& cast) {
         if (!typeEnv.isType(cast.getType())) {
@@ -343,6 +339,9 @@ void AstSemanticChecker::checkProgram(AstTranslationUnit& translationUnit) {
                                   case TypeAttribute::Record:
                                       out << "a record";
                                       break;
+                                  case TypeAttribute::Sum:
+                                      out << "a sum type";
+                                      break;
                               }
                           });
                     std::cerr << side << " : " << typeAnalysis.getTypes(&side) << "\n";
@@ -442,7 +441,7 @@ static bool hasUnnamedVariable(const AstArgument* arg) {
         return any_of(term->getArguments(), hasUnnamedVariable);
     }
     if (const auto* si = dynamic_cast<const AstSumInit*>(arg)) {
-        return hasUnnamedVariable(si->getArgument());
+        return hasUnnamedVariable(&*si->argument);
     }
     if (dynamic_cast<const AstAggregator*>(arg) != nullptr) {
         return false;
@@ -627,7 +626,7 @@ void AstSemanticChecker::checkConstant(ErrorReport& report, const AstArgument& a
             checkConstant(report, *arg);
         }
     } else if (auto* si = dynamic_cast<const AstSumInit*>(&argument)) {
-        checkConstant(report, *si->getArgument());
+        checkConstant(report, *si->argument);
     } else {
         std::cout << "Unsupported Argument: " << typeid(argument).name() << "\n";
         assert(false && "Unknown case");
@@ -848,11 +847,11 @@ void AstSemanticChecker::checkUnionType(ErrorReport& report, const AstProgram& p
     }
 }
 
-void AstSemanticChecker::checkSumType(
-        ErrorReport& report, const AstProgram& program, const AstSumType& type) {
+void AstSemanticChecker::checkSumType(ErrorReport& report, const AstProgram&,
+        const TypeEnvironment& typeEnvironment, const AstSumType& type) {
     // check proper definition of all field types
     for (auto&& br : type.getBranches()) {
-        if (br.type != "number" && br.type != "symbol" && !program.getType(br.type)) {
+        if (br.type != "number" && br.type != "symbol" && !typeEnvironment.isType(br.type)) {
             report.addError("Undefined type " + toString(br.type) + " in definition of sum branch " + br.name,
                     type.getSrcLoc());
         }
@@ -905,7 +904,7 @@ void AstSemanticChecker::checkType(ErrorReport& report, const AstProgram& progra
     } else if (const auto* r = dynamic_cast<const AstRecordType*>(&type)) {
         checkRecordType(report, program, typeEnvironment, *r);
     } else if (const auto* r = dynamic_cast<const AstSumType*>(&type)) {
-        checkSumType(report, program, *r);
+        checkSumType(report, program, typeEnvironment, *r);
     }
 }
 

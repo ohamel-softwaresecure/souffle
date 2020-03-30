@@ -390,9 +390,11 @@ public:
             case TypeAttribute::Symbol:
                 return createType<SubsetType>(name, getSymbolType());
             case TypeAttribute::Record:
+            case TypeAttribute::Sum:
                 assert(false && "Invalid type attribute");
+                break;
         }
-        return createType<SubsetType>(name, getNumberType());
+        abort();
     }
 
     UnionType& createUnionType(const AstQualifiedName& name) {
@@ -403,7 +405,7 @@ public:
         return createType<RecordType>(name);
     }
 
-    SumType& createSumType(const identifier& name) {
+    SumType& createSumType(const AstQualifiedName& name) {
         return createType<SumType>(name);
     }
 

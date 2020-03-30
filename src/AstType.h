@@ -88,8 +88,10 @@ protected:
             case TypeAttribute::Symbol:
                 os << "symbol";
                 break;
-            case TypeAttribute::Record:
+            case TypeAttribute::Record:  // fall-thru
+            case TypeAttribute::Sum:
                 assert(false && "Invalid type");
+                abort();
         }
     }
 

@@ -766,7 +766,7 @@ std::map<const AstArgument*, TypeSet> TypeAnalysis::analyseTypes(
             for (auto&& br : ty->getBranches()) {
                 if (br.name != init.getBranch()) continue;
 
-                addConstraint(isSubtypeOf(getVar(init.getArgument()), br.type));
+                addConstraint(isSubtypeOf(getVar(*init.argument), br.type));
                 break;  // first branch name match is enough; branches may not have overlapping names
             }
         }

@@ -138,7 +138,9 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
                     typeDependencyGraph.insert(type->getQualifiedName(), "symbol");
                     break;
                 case TypeAttribute::Record:
+                case TypeAttribute::Sum:
                     assert(false && "invalid type");
+                    abort();
             }
         } else if (dynamic_cast<const AstRecordType*>(cur) != nullptr) {
             // do nothing
@@ -149,6 +151,7 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
         } else {
             std::cout << "Unsupported type construct: " << typeid(cur).name() << "\n";
             assert(false && "Unsupported Type Construct!");
+            abort();
         }
     }
     for (const auto& cur : program.getTypes()) {

@@ -210,7 +210,7 @@ std::map<const AstArgument*, bool> getGroundedTerms(const AstClause& clause) {
             auto cur = getVar(init);
 
             // if sum is grounded so is its branch body
-            auto arg_var = getVar(init.getArgument());
+            auto arg_var = getVar(*init.argument);
             addConstraint(imply(cur, arg_var));
 
             // if the branch body is grounded, so is the sum

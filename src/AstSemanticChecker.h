@@ -73,7 +73,8 @@ private:
 
     static void checkUnionType(ErrorReport& report, const AstProgram& program,
             const TypeEnvironment& typeEnvironment, const AstUnionType& type);
-    static void checkSumType(ErrorReport& report, const AstProgram& program, const AstSumType& type);
+    static void checkSumType(ErrorReport& report, const AstProgram& program,
+            const TypeEnvironment& typeEnvironment, const AstSumType& type);
     static void checkRecordType(ErrorReport& report, const AstProgram& program,
             const TypeEnvironment& typeEnvironment, const AstRecordType& type);
     static void checkType(ErrorReport& report, const AstProgram& program,

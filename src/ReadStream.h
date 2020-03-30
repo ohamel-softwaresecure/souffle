@@ -186,7 +186,7 @@ protected:
                 branchValue = readStringInRecord(source, pos, &consumed);
                 break;
             case 'i':
-                branchValue = RamDomainFromString(source.substr(pos), &consumed);
+                branchValue = RamSignedFromString(source.substr(pos), &consumed);
                 break;
             case 'u':
                 branchValue = ramBitCast(RamUnsignedFromString(source.substr(pos), &consumed));
@@ -210,7 +210,8 @@ protected:
             *_consumed = pos - initial_position;
         }
 
-        return recordTable.pack({RamDomain(branchIndex), branchValue});
+        RamDomain tuple[2]{branchIndex, branchValue};
+        return recordTable.pack(tuple, 2);
     }
 
     RamDomain readStringInRecord(const std::string& source, const size_t pos, size_t* charactersRead) {

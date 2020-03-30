@@ -115,6 +115,7 @@ inline BinaryConstraintOp convertOverloadedConstraint(
         case TypeAttribute::Float   : return BinaryConstraintOp::F##op; \
         case TypeAttribute::Symbol  : return BinaryConstraintOp::S##op; \
         case TypeAttribute::Record  : return FAIL();                    \
+        case TypeAttribute::Sum     : return FAIL();                    \
         }                                                               \
         assert(false && "unhandled TypeAttr");                          \
         break; /* HACK: GCC-9 is incorrectly reporting a case fallthru */

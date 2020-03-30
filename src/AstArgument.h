@@ -418,10 +418,15 @@ public:
         return res;
     }
 
+    /** The type of the record in question, if specified.
+     *  If not specified, we'll try to infer.
+     */
+    std::optional<AstQualifiedName> type;
+
 protected:
     void print(std::ostream& os) const override {
         if (type) {
-            os << "@" << type << " ";
+            os << "@" << *type << " ";
         }
 
         os << "[" << join(args, ",", print_deref<std::unique_ptr<AstArgument>>()) << "]";
@@ -433,25 +438,16 @@ protected:
         const auto& other = static_cast<const AstRecordInit&>(node);
         return equal_targets(args, other.args) && type == other.type;
     }
-
-    /** The type of the record in question, if specified.
-     *  If not specified, we'll try to infer.
-     */
-    std::optional<AstQualifiedName> type;
 };
 
 /**
  * An argument that takes a values and converts it into a new sum type branch.
  */
-class AstSumInit : public AstTerm {
+class AstSumInit : public AstArgument {
 public:
-    AstSumInit(AstQualifiedName ty, std::string branch, std::unique_ptr<AstTerm> arg)
-            : type(std::move(ty)), branch(std::move(branch)) {
-        addArgument(std::move(arg));
-    }
-
-    const AstArgument& getArgument() const {
-        return *arguments.begin();
+    AstSumInit(AstQualifiedName ty, std::string branch, std::unique_ptr<AstArgument> arg)
+            : type(std::move(ty)), argument(std::move(arg)), branch(std::move(branch)) {
+        assert(argument);
     }
 
     const std::string& getBranch() const {
@@ -460,43 +456,43 @@ public:
 
     /** Creates a clone of this AST sub-structure */
     AstSumInit* clone() const override {
-        auto res = new AstSumInit(type, branch, souffle::clone(arg));
+        auto res = new AstSumInit(type, branch, souffle::clone(argument));
         res->setSrcLoc(getSrcLoc());
         return res;
     }
 
     /** Mutates this node */
     void apply(const AstNodeMapper& map) override {
-        arg = map(std::move(arg));
+        argument = map(std::move(argument));
     }
 
     /** Obtains a list of all embedded child nodes */
     std::vector<const AstNode*> getChildNodes() const override {
         auto res = AstArgument::getChildNodes();
-        res.push_back(arg.get());
+        res.push_back(argument.get());
         return res;
     }
 
     /** The type of the record in question */
     AstQualifiedName type;
 
+    /** Branch value expression */
+    std::unique_ptr<AstArgument> argument;
+
 protected:
     void print(std::ostream& os) const override {
-        os << "@" << type << " " << branch << "[" << *arg << "]";
+        os << "@" << type << " " << branch << "[" << *argument << "]";
     }
 
     /** Implements the node comparison for this node type */
     bool equal(const AstNode& node) const override {
         assert(nullptr != dynamic_cast<const AstSumInit*>(&node));
         const auto& other = static_cast<const AstSumInit&>(node);
-        return type == other.type && branch == other.branch && *arg == *other.arg;
+        return type == other.type && branch == other.branch && *argument == *other.argument;
     }
 
     /** The sum type branch name */
     std::string branch;
-
-    /** The list of components to be aggregated into a record */
-    std::unique_ptr<AstArgument> arg;
 };
 
 /**
