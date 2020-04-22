@@ -360,7 +360,7 @@ public:
             case TypeAttribute::Symbol:
                 return createType<SubsetType>(name, getSymbolType());
             case TypeAttribute::Record:
-                assert(false && "Invalid type attribute");
+                fatal("Invalid type attribute");
         }
         return createType<SubsetType>(name, getNumberType());
     }
@@ -474,8 +474,7 @@ bool eqTypeTypeAttribute(const TypeAttribute ramType, const T& type) {
         case TypeAttribute::Record:
             return isRecordType(type);
     }
-    assert(false && "unhandled `TypeAttribute`");
-    exit(EXIT_FAILURE);
+    fatal("unhandled `TypeAttribute`");
 }
 
 /**
@@ -495,8 +494,7 @@ TypeAttribute getTypeAttribute(const T& type) {
     } else if (isSymbolType(type)) {
         primitiveType = TypeAttribute::Symbol;
     } else {
-        std::cerr << "Unknown type class" << std::endl;
-        std::exit(EXIT_FAILURE);
+        fatal("Unknown type class");
     }
     return primitiveType;
 }

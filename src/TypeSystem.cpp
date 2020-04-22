@@ -138,8 +138,8 @@ struct TypeVisitor {
         if (auto* t = dynamic_cast<const RecordType*>(&type)) {
             return visitRecordType(*t);
         }
-        assert(false && "Unsupported type encountered!");
-        return R();
+
+        fatal("Unsupported type encountered!");
     }
 
     virtual R visitPredefinedType(const PredefinedType& type) const {

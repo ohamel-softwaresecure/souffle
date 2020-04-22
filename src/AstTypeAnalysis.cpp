@@ -652,8 +652,8 @@ std::map<const AstArgument*, TypeSet> TypeAnalysis::analyseTypes(
                 case TypeAttribute::Symbol:
                     addConstraint(isSubtypeOf(functorVar, env.getSymbolType()));
                     break;
-                default:
-                    assert(false && "Invalid return type");
+                case TypeAttribute::Record:
+                    fatal("Invalid return type");
             }
 
             // Special case
@@ -678,8 +678,8 @@ std::map<const AstArgument*, TypeSet> TypeAnalysis::analyseTypes(
                     case TypeAttribute::Symbol:
                         addConstraint(isSubtypeOf(argumentVar, env.getSymbolType()));
                         break;
-                    default:
-                        assert(false && "Invalid argument type");
+                    case TypeAttribute::Record:
+                        fatal("Invalid return type");
                 }
                 ++i;
             }

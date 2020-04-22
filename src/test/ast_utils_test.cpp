@@ -29,7 +29,7 @@ namespace souffle::test {
 
 TEST(AstUtils, Grounded) {
     // create an example clause:
-    auto* clause = new AstClause();
+    auto clause = std::make_unique<AstClause>();
 
     // something like:
     //   r(X,Y,Z) :- a(X), X = Y, !b(Z).
@@ -61,17 +61,20 @@ TEST(AstUtils, Grounded) {
     // check construction
     EXPECT_EQ("r(X,Y,Z) :- \n   a(X),\n   X = Y,\n   !b(Z).", toString(*clause));
 
+    auto program = std::make_unique<AstProgram>();
+    program->addClause(std::move(clause));
+    DebugReport dbgReport;
+    ErrorReport errReport;
+    AstTranslationUnit tu{std::move(program), errReport, dbgReport};
+
     // obtain groundness
-    auto isGrounded = getGroundedTerms(*clause);
+    auto isGrounded = getGroundedTerms(tu, *tu.getProgram()->getClauses()[0]);
 
     auto args = head->getArguments();
     // check selected sub-terms
     EXPECT_TRUE(isGrounded[args[0]]);   // X
     EXPECT_TRUE(isGrounded[args[1]]);   // Y
     EXPECT_FALSE(isGrounded[args[2]]);  // Z
-
-    // done
-    delete clause;
 }
 
 TEST(AstUtils, GroundedRecords) {
@@ -98,7 +101,7 @@ TEST(AstUtils, GroundedRecords) {
     EXPECT_EQ("s(x) :- \n   r([x,y]).", toString(*clause));
 
     // obtain groundness
-    auto isGrounded = getGroundedTerms(*clause);
+    auto isGrounded = getGroundedTerms(*tu, *clause);
 
     const AstAtom* s = clause->getHead();
     const auto* r = dynamic_cast<const AstAtom*>(clause->getBodyLiterals()[0]);

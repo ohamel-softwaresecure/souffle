@@ -60,8 +60,7 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
             // initialize the record
             env.createRecordType(cur->getQualifiedName());
         } else {
-            std::cout << "Unsupported type construct: " << typeid(cur).name() << "\n";
-            assert(false && "Unsupported Type Construct!");
+            fatal("unsupported type construct: %s", typeid(cur).name());
         }
     }
 
@@ -99,8 +98,7 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
                 }
             }
         } else {
-            std::cout << "Unsupported type construct: " << typeid(cur).name() << "\n";
-            assert(false && "Unsupported Type Construct!");
+            fatal("unsupported type construct: %s", typeid(cur).name());
         }
     }
 
@@ -122,7 +120,7 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
                     typeDependencyGraph.insert(type->getQualifiedName(), "symbol");
                     break;
                 case TypeAttribute::Record:
-                    assert(false && "invalid type");
+                    fatal("invalid type");
             }
         } else if (dynamic_cast<const AstRecordType*>(cur) != nullptr) {
             // do nothing
@@ -131,8 +129,7 @@ void TypeEnvironmentAnalysis::updateTypeEnvironment(const AstProgram& program) {
                 typeDependencyGraph.insert(type->getQualifiedName(), subtype);
             }
         } else {
-            std::cout << "Unsupported type construct: " << typeid(cur).name() << "\n";
-            assert(false && "Unsupported Type Construct!");
+            fatal("unsupported type construct: %s", typeid(cur).name());
         }
     }
     for (const auto& cur : program.getTypes()) {

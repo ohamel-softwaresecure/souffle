@@ -17,6 +17,7 @@
 #pragma once
 
 #include "RamTypes.h"
+#include "tinyformat.h"
 
 #include <algorithm>
 #include <array>
@@ -106,6 +107,24 @@ inline unsigned long __builtin_ctzll(unsigned long long value) {
 #endif
 
 namespace souffle {
+
+using tfm::format;
+
+template <typename... Args>
+[[noreturn]] void fatal(const char* fmt, const Args&... args) {
+    format(std::cerr, fmt, args...);
+    std::cerr << "\n";
+    assert(false && "fatal error; see std err");
+    abort();
+}
+
+// HACK:  Workaround for GCC <= 9.2 which does not perform exhaustive switch analysis.
+//        This is intended to be used to suppress spurious reachability warnings.
+#if defined(__GNUC__) && __GNUC__ < 10
+#define UNREACHABLE_BAD_CASE_ANALYSIS fatal("unhandled switch branch");
+#else
+#define UNREACHABLE_BAD_CASE_ANALYSIS (void);
+#endif
 
 // Forward declaration
 inline bool isPrefix(const std::string& prefix, const std::string& element);
@@ -366,6 +385,19 @@ std::vector<T*> toPtrVector(const std::vector<std::unique_ptr<T>>& v) {
         res.push_back(e.get());
     }
     return res;
+}
+
+/**
+ * Applies a function to each element of a vector and returns the results.
+ */
+template <typename A, typename F /* : A -> B */>
+auto map(const std::vector<A>& xs, F&& f) {
+    std::vector<decltype(f(xs[0]))> ys;
+    ys.reserve(xs.size());
+    for (auto&& x : xs) {
+        ys.emplace_back(f(x));
+    }
+    return ys;
 }
 
 // -------------------------------------------------------------
